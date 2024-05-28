@@ -111,6 +111,9 @@ alias gcleanup="git branch --merged | grep -v '\bmaster\b'>/tmp/merged-branches 
 
 export PATH=$PATH:/opt/homebrew/bin
 
+# Personal custom supercool stuff
+. ~/.bash_aliases
+
 export EDITOR=nvim
 
 function config {
