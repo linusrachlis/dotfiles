@@ -1,5 +1,5 @@
-alias reload-aliases='. ~/.config/zsh/aliases'
-alias edit-aliases='nvim ~/.config/zsh/aliases'
+alias reload-aliases='. ~/.config/zsh/aliases.sh'
+alias edit-aliases='nvim ~/.config/zsh/aliases.sh'
 
 alias showpath='echo $PATH | tr : ''\\n'''
 
