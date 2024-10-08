@@ -2,31 +2,18 @@
 [user]
 	name = Linus Rachlis
 	email = linus@rachlis.net
-
 [core]
     autocrlf = input
     editor = nvim
-
 [merge]
     tool = vscode
 [mergetool "vscode"]
     cmd = code --wait $MERGED
-
 [diff]
     tool = vscode
 [difftool "vscode"]
     cmd = code --wait --diff $LOCAL $REMOTE
-
 [alias]
-    s = status
-    aa = add -A
-    ap = add -p
-    l = log --graph --oneline --all --decorate
-    l1 = log --graph --oneline --decorate
-    lm = log --graph --format=medium --all --decorate
-    lm1 = log --graph --format=medium --decorate
-    dc = diff --cached
-    co = checkout
     edit-config = config -e --global
     show-skipped = !git ls-files -v|grep '^S'
     skip = update-index --skip-worktree
@@ -40,3 +27,5 @@
 	autoSetupRemote = true
 [init]
 	defaultBranch = main
+[include]
+    path = ~/.gitconfig_extra
