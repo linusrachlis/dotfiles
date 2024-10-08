@@ -8,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="random"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -65,24 +65,12 @@ ZSH_THEME="robbyrussell"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-
+source ~/.config/zsh/plugins.sh
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
-
-
-# Load nvm
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -106,16 +94,12 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias gcleanup="git branch --merged | grep -v '\bmaster\b'>/tmp/merged-branches && \
-  vi /tmp/merged-branches && xargs git branch -d </tmp/merged-branches"
+if [ -f ~/.config/zsh/managed_blocks.sh ]; then
+    source ~/.config/zsh/managed_blocks.sh
+fi
 
-export PATH=$PATH:/opt/homebrew/bin
-
-# Personal custom supercool stuff
-. ~/.bash_aliases
+if [ -f ~/.config/zsh/aliases.sh ]; then
+    source ~/.config/zsh/aliases.sh
+fi
 
 export EDITOR=nvim
-
-function config {
-  git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
-}

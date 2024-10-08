@@ -1,0 +1,4 @@
+# Config parts that are different for work
+plugins.sh
+managed_blocks.sh
+aliases_extra.sh
