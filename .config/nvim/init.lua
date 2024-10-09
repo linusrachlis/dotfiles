@@ -86,8 +86,34 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
+-- Quick reload config
+vim.keymap.set('n', '<leader>rc', '<cmd>luafile $MYVIMRC<CR>')
+
 -- Copy GH link
--- vim.api.nvim_create_user_command('GithubCopyLink', function ()
---
--- end, {})
--- vim.keymap.set('n', '<leader>gh', '<cmd>GithubCopyLink')
+vim.api.nvim_create_user_command('GithubCopyLink', function ()
+  local commit_sha = vim.fn.system('echo -n $(git rev-parse HEAD)')
+  local full_path = vim.api.nvim_buf_get_name(0)
+  local relative_path = vim.fn.fnamemodify(full_path, ':.')
+  local gh_main_url = vim.fn.system('echo -n $(gh repo view --json url -q .url)')
+
+  local line_expr_for_url
+  -- The visual line mode doesn't quite work because the marks get the most
+  -- recent visual selection but not the current
+  --
+  -- local is_visual_line_mode = vim.fn.mode() == 'V'
+  -- if is_visual_line_mode then
+    -- local start_pos = vim.fn.getpos("'<")
+    -- local end_pos = vim.fn.getpos("'>")
+    -- local start_line = start_pos[2]
+    -- local end_line = end_pos[2]
+    -- line_expr_for_url = "L" .. start_line .. "-L" .. end_line
+  -- else
+    local line_number = vim.api.nvim_win_get_cursor(0)[1]
+    line_expr_for_url = "L" .. line_number
+  -- end
+
+  local full_gh_permalink = gh_main_url .. "/blob/" .. commit_sha .. "/" .. relative_path .. "#" .. line_expr_for_url
+  print(full_gh_permalink)
+  vim.fn.setreg('+', full_gh_permalink)
+end, {})
+vim.keymap.set({'n', 'v'}, '<leader>gh', '<cmd>GithubCopyLink<CR>')
