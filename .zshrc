@@ -103,3 +103,4 @@ if [ -f ~/.config/zsh/aliases.sh ]; then
 fi
 
 export EDITOR=nvim
+export PATH=/opt/homebrew/bin:$PATH
