@@ -89,6 +89,11 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- Quick reload config
 vim.keymap.set('n', '<leader>rc', '<cmd>luafile $MYVIMRC<CR>')
 
+-- Set up LSPs
+require'lspconfig'.pyright.setup{}
+require'lspconfig'.ts_ls.setup{}
+-- Done with LSPs
+
 -- Copy GH link
 vim.api.nvim_create_user_command('GithubCopyLink', function ()
   local commit_sha = vim.fn.system('echo -n $(git rev-parse HEAD)')
@@ -117,3 +122,11 @@ vim.api.nvim_create_user_command('GithubCopyLink', function ()
   vim.fn.setreg('+', full_gh_permalink)
 end, {})
 vim.keymap.set({'n', 'v'}, '<leader>gh', '<cmd>GithubCopyLink<CR>')
+vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename)
+vim.keymap.set("n", "<leader>lfr", vim.lsp.buf.references)
+vim.api.nvim_create_user_command('CopyRelPath', function ()
+  local full_path = vim.api.nvim_buf_get_name(0)
+  local relative_path = vim.fn.fnamemodify(full_path, ':.')
+  print(relative_path)
+  vim.fn.setreg('+', relative_path)
+end, {})
