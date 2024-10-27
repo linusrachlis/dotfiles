@@ -1,8 +1,6 @@
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 --
-require("config.lazy")
-
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
@@ -68,6 +66,11 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 5
+
+
+-- [[ Load Plugin Manager ]]
+require("config.lazy")
+
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
