@@ -1,11 +1,7 @@
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 --
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+require("config.lazy")
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -32,6 +28,14 @@ vim.opt.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.opt.breakindent = true
+vim.opt.expandtab = true    -- Use spaces instead of tabs
+vim.opt.shiftwidth = 4      -- Number of spaces for each step of indent
+vim.opt.tabstop = 4         -- Number of spaces a tab counts for
+vim.opt.softtabstop = 4     -- Number of spaces a tab counts for while editing
+vim.opt.smartindent = true  -- Insert indents automatically
+vim.opt.shiftround = true   -- Round indent to multiple of 'shiftwidth'
+vim.opt.autoindent = true   -- Copy indent from current line when starting a new line
+
 
 -- Save undo history
 vim.opt.undofile = true
@@ -88,11 +92,6 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 
 -- Quick reload config
 vim.keymap.set('n', '<leader>rc', '<cmd>luafile $MYVIMRC<CR>')
-
--- Set up LSPs
-require'lspconfig'.pyright.setup{}
-require'lspconfig'.ts_ls.setup{}
--- Done with LSPs
 
 -- Copy GH link
 vim.api.nvim_create_user_command('GithubCopyLink', function ()
