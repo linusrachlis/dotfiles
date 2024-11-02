@@ -11,6 +11,13 @@ export ZSH="$HOME/.oh-my-zsh"
 # good ones:
 # - awesomepanda
 # - kennethreitz
+# - josh
+# - mh
+# - cloud
+# - macovsky-ruby
+# - jnrowe
+# - refined
+# - oldgallois
 ZSH_THEME="random"
 
 # Set list of themes to pick from when loading at random
@@ -106,4 +113,4 @@ if [ -f ~/.config/zsh/aliases.sh ]; then
 fi
 
 export EDITOR=nvim
-export PATH=/opt/homebrew/bin:$PATH
+source <(fzf --zsh)
