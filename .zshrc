@@ -113,4 +113,3 @@ if [ -f ~/.config/zsh/aliases.sh ]; then
 fi
 
 export EDITOR=nvim
-source <(fzf --zsh)
