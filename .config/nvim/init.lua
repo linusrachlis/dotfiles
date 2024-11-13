@@ -37,6 +37,7 @@ vim.opt.softtabstop = 4     -- Number of spaces a tab counts for while editing
 vim.opt.smartindent = true  -- Insert indents automatically
 vim.opt.shiftround = true   -- Round indent to multiple of 'shiftwidth'
 vim.opt.autoindent = true   -- Copy indent from current line when starting a new line
+vim.opt.textwidth = 0
 
 
 -- Save undo history
@@ -98,6 +99,10 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 
 -- Quick reload config
 vim.keymap.set('n', '<leader>rc', '<cmd>luafile $MYVIMRC<CR>')
+
+-- Make j and k act as expected when lines are soft-wrapped
+vim.keymap.set('n', 'j', 'gj')
+vim.keymap.set('n', 'k', 'gk')
 
 -- Copy GH link
 vim.api.nvim_create_user_command('GithubCopyLink', function ()
