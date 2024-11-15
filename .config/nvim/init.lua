@@ -98,7 +98,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Quick reload config
-vim.keymap.set('n', '<leader>rc', '<cmd>luafile $MYVIMRC<CR>')
+vim.keymap.set('n', '<leader>rc', '<cmd>luafile $MYVIMRC<CR>', { desc = 'Reload Neovim config' })
 
 -- Make j and k act as expected when lines are soft-wrapped
 vim.keymap.set('n', 'j', 'gj')
@@ -147,7 +147,10 @@ vim.keymap.set('n', '<leader>flg', telescope_builtins.live_grep, { desc = 'Teles
 vim.keymap.set('n', '<leader>fg', telescope_builtins.grep_string, { desc = 'Telescope grep string under cursor' })
 vim.keymap.set('n', '<leader>fb', telescope_builtins.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', telescope_builtins.help_tags, { desc = 'Telescope help tags' })
+vim.keymap.set('n', '<leader>fr', telescope_builtins.resume, { desc = 'Telescope resume' })
 vim.keymap.set("n", "<leader>flr", telescope_builtins.lsp_references, { desc = 'Telescope LSP references' })
+vim.keymap.set("n", "<leader>fld", telescope_builtins.lsp_document_symbols, { desc = 'Telescope LSP document symbols' })
+vim.keymap.set("n", "<leader>flw", telescope_builtins.lsp_dynamic_workspace_symbols, { desc = 'Telescope LSP document symbols' })
 
 -- Use FzfLua for commands picker instead of Telescope because it includes ex commands
 vim.keymap.set("n", "<leader>fp", '<cmd>FzfLua commands<CR>', { desc = 'Fzf command pallette' })
