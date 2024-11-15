@@ -14,5 +14,15 @@ return {
             'nvim-lua/plenary.nvim',
             'nvim-treesitter/nvim-treesitter'
         }
-    }
+    },
+    {
+        "tpope/vim-surround",
+        event = "VeryLazy",
+    },
+    {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end
+    },
 }
