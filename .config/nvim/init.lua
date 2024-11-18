@@ -162,8 +162,8 @@ vim.keymap.set('n', '<leader>fb', telescope_builtins.buffers, { desc = 'Telescop
 vim.keymap.set('n', '<leader>fh', telescope_builtins.help_tags, { desc = 'Telescope help tags' })
 vim.keymap.set('n', '<leader>fr', telescope_builtins.resume, { desc = 'Telescope resume' })
 vim.keymap.set("n", "<leader>flr", telescope_builtins.lsp_references, { desc = 'Telescope LSP references' })
-vim.keymap.set("n", "<leader>fld", telescope_builtins.lsp_document_symbols, { desc = 'Telescope LSP document symbols' })
-vim.keymap.set("n", "<leader>flw", telescope_builtins.lsp_dynamic_workspace_symbols, { desc = 'Telescope LSP document symbols' })
 
 -- Use FzfLua for commands picker instead of Telescope because it includes ex commands
 vim.keymap.set("n", "<leader>fp", '<cmd>FzfLua commands<CR>', { desc = 'Fzf command pallette' })
+vim.keymap.set("n", "<leader>fld",  '<CMD>FzfLua lsp_document_symbols<CR>', { desc = 'Fzf LSP document symbols' })
+vim.keymap.set("n", "<leader>flw", '<CMD>FzfLua lsp_workspace_symbols<CR>', { desc = 'Fzf LSP workspace symbols' })
