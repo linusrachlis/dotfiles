@@ -5,7 +5,10 @@ return {
         'echasnovski/mini.files',
         version = '*',
         config = function()
-            require('mini.files').setup()
+            require('mini.files').setup({
+                permanent_delete = false,
+                preview = true,
+            })
         end
     },
     {
