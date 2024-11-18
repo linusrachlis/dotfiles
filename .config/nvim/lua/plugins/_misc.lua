@@ -12,6 +12,11 @@ return {
         end
     },
     {
+        'echasnovski/mini.trailspace',
+        version = '*',
+        config = function() require('mini.trailspace').setup() end
+    },
+    {
         'nvim-telescope/telescope.nvim', branch = '0.1.x',
         dependencies = {
             'nvim-lua/plenary.nvim',
