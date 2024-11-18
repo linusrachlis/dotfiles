@@ -137,7 +137,6 @@ vim.api.nvim_create_user_command('GithubCopyLink', function ()
 end, {})
 vim.keymap.set({'n', 'v'}, '<leader>gh', '<cmd>GithubCopyLink<CR>')
 vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename)
-vim.keymap.set("n", "<leader>fm", MiniFiles.open)
 vim.api.nvim_create_user_command('CopyRelPath', function ()
   local full_path = vim.api.nvim_buf_get_name(0)
   local relative_path = vim.fn.fnamemodify(full_path, ':.')
@@ -145,6 +144,16 @@ vim.api.nvim_create_user_command('CopyRelPath', function ()
   vim.fn.setreg('+', relative_path)
 end, {})
 
+-- Mini.files explorer
+vim.keymap.set(
+  "n",
+  "<leader>fm",
+  function () MiniFiles.open(vim.api.nvim_buf_get_name(0)) end,
+  { desc = 'Mini.files - directory of current file' }
+)
+vim.keymap.set("n", "<leader>fM", MiniFiles.open, { desc = 'Mini.files - CWD' })
+
+-- Fuzzy finding stuff (combination of FzfLua and Telescope)
 local telescope_builtins = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', telescope_builtins.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>flg', telescope_builtins.live_grep, { desc = 'Telescope live grep' })
