@@ -105,8 +105,8 @@ vim.keymap.set('n', 'j', 'gj')
 vim.keymap.set('n', 'k', 'gk')
 
 -- Easy light/dark toggling
-vim.keymap.set('n', '<leader>sbl', '<CMD>set bg=light<CR>', { desc = 'Set light background' })
-vim.keymap.set('n', '<leader>sbd', '<CMD>set bg=dark<CR>', { desc = 'Set dark background' })
+vim.keymap.set('n', '<leader>bl', '<CMD>set bg=light<CR>', { desc = 'Set light background' })
+vim.keymap.set('n', '<leader>bd', '<CMD>set bg=dark<CR>', { desc = 'Set dark background' })
 
 -- Copy GH link
 vim.api.nvim_create_user_command('GithubCopyLink', function ()
