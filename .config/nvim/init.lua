@@ -153,17 +153,20 @@ vim.keymap.set(
 )
 vim.keymap.set("n", "<leader>fM", MiniFiles.open, { desc = 'Mini.files - CWD' })
 
--- Fuzzy finding stuff (combination of FzfLua and Telescope)
+-- Telescope
 local telescope_builtins = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', telescope_builtins.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>flg', telescope_builtins.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fg', telescope_builtins.grep_string, { desc = 'Telescope grep string under cursor' })
+vim.keymap.set('n', '<leader>fg', telescope_builtins.live_grep, { desc = 'Telescope live grep' })
+vim.keymap.set('n', '<leader>fcg', telescope_builtins.grep_string, { desc = 'Telescope grep string under cursor' })
 vim.keymap.set('n', '<leader>fb', telescope_builtins.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', telescope_builtins.help_tags, { desc = 'Telescope help tags' })
 vim.keymap.set('n', '<leader>fr', telescope_builtins.resume, { desc = 'Telescope resume' })
 vim.keymap.set("n", "<leader>flr", telescope_builtins.lsp_references, { desc = 'Telescope LSP references' })
 
--- Use FzfLua for commands picker instead of Telescope because it includes ex commands
-vim.keymap.set("n", "<leader>fp", '<cmd>FzfLua commands<CR>', { desc = 'Fzf command pallette' })
-vim.keymap.set("n", "<leader>fld",  '<CMD>FzfLua lsp_document_symbols<CR>', { desc = 'Fzf LSP document symbols' })
-vim.keymap.set("n", "<leader>flw", '<CMD>FzfLua lsp_live_workspace_symbols<CR>', { desc = 'Fzf LSP workspace symbols' })
+-- FzfLua works better for some things
+local fzflua = require('fzf-lua')
+vim.keymap.set("n", "<leader>fp", fzflua.commands, { desc = 'Fzf command pallette' })
+vim.keymap.set("n", "<leader>fld",  fzflua.lsp_document_symbols, { desc = 'Fzf LSP document symbols' })
+vim.keymap.set("n", "<leader>flw", fzflua.lsp_live_workspace_symbols, { desc = 'Fzf LSP workspace symbols' })
+vim.keymap.set("n", "<leader>fdd", fzflua.lsp_document_diagnostics, { desc = 'Fzf LSP document diagnostics' })
+vim.keymap.set("n", "<leader>fdw", fzflua.lsp_workspace_diagnostics, { desc = 'Fzf LSP workspace diagnostics' })
