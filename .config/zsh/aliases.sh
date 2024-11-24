@@ -14,6 +14,9 @@ config() {
   git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
 }
 
+# Nvim easy session resume
+alias nvims='nvim -S Session.vim'
+
 if [ -f ~/.config/zsh/aliases_extra ]; then
     source ~/.config/zsh/aliases_extra
 fi
