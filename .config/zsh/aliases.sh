@@ -10,9 +10,20 @@ rename_master_to_main() {
     git remote set-head origin -a
 }
 
-config() {
-  git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
+dotfiles_git_on() {
+    export GIT_WORKS_WITH_DOTFILES_REPO=1
 }
+git() {
+    if [ $GIT_WORKS_WITH_DOTFILES_REPO -eq 1 ]; then
+        command git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
+    else
+        command git $@
+    fi
+}
+dotfiles_git_off() {
+    export GIT_WORKS_WITH_DOTFILES_REPO=0
+}
+dotfiles_git_off # Initialize variable to 0
 
 # Nvim easy session resume
 alias nvims='nvim -S Session.vim'
