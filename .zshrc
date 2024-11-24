@@ -16,12 +16,10 @@ ZSH_THEME="random"
 # If set to an empty array, this variable will have no effect.
 ZSH_THEME_RANDOM_CANDIDATES=(
     "awesomepanda"
-    "kennethreitz"
     "josh"
     "mh"
     "cloud"
     "macovsky-ruby"
-    "jnrowe"
     "refined"
     "oldgallois"
 )
