@@ -72,9 +72,6 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 5
 
--- Colorscheme
-vim.cmd.colorscheme "catppuccin"
-
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
