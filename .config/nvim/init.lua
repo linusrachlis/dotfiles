@@ -148,13 +148,14 @@ vim.api.nvim_create_user_command('CopyRelPath', function ()
 end, {})
 
 -- Mini.files explorer
+local miniFiles = require('mini.files')
 vim.keymap.set(
   "n",
   "<leader>fm",
-  function () MiniFiles.open(vim.api.nvim_buf_get_name(0)) end,
+  function () miniFiles.open(vim.api.nvim_buf_get_name(0)) end,
   { desc = 'Mini.files - directory of current file' }
 )
-vim.keymap.set("n", "<leader>fM", MiniFiles.open, { desc = 'Mini.files - CWD' })
+vim.keymap.set("n", "<leader>fM", miniFiles.open, { desc = 'Mini.files - CWD' })
 
 -- Telescope
 local telescope_builtins = require('telescope.builtin')
