@@ -1,20 +1,23 @@
 return {
     "gpanders/editorconfig.nvim",
     "numToStr/prettierrc.nvim",
+    "numToStr/Comment.nvim",
     {
         'echasnovski/mini.files',
         version = '*',
-        config = function()
-            require('mini.files').setup({
-                permanent_delete = false,
+        opts = {
+            options = {
+                permanent_delete = false
+            },
+            windows = {
                 preview = true,
-            })
-        end
+                width_preview = 60
+            }
+        },
     },
     {
         'echasnovski/mini.trailspace',
         version = '*',
-        config = function() require('mini.trailspace').setup() end
     },
     {
         'nvim-telescope/telescope.nvim', branch = '0.1.x',
@@ -26,11 +29,5 @@ return {
     {
         "tpope/vim-surround",
         event = "VeryLazy",
-    },
-    {
-        'numToStr/Comment.nvim',
-        config = function()
-            require('Comment').setup()
-        end
     },
 }
