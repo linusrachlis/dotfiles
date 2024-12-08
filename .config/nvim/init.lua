@@ -83,8 +83,13 @@ require("config.lazy")
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
--- Clear highlight on search on pressing <Esc> in normal mode
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+-- Clear search and LSP highlights on search on pressing <Esc> in normal mode
+vim.keymap.set('n', '<Esc>', function ()
+  vim.cmd('nohls')
+  if vim.lsp.buf_is_attached() then
+    vim.lsp.buf.clear_references()
+  end
+end)
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
@@ -140,6 +145,10 @@ vim.api.nvim_create_user_command('GithubCopyLink', function ()
 end, {})
 vim.keymap.set({'n', 'v'}, '<leader>gh', '<cmd>GithubCopyLink<CR>', { desc = 'Copy Github permalink' })
 vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = 'LSP rename' })
+vim.keymap.set("n", "<leader>li", vim.lsp.buf.hover, { desc = 'LSP show symbol info' })
+vim.keymap.set("n", "<leader>lh", vim.lsp.buf.document_highlight, { desc = 'LSP highlight references' })
+vim.keymap.set("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = 'LSP signature help' })
+vim.keymap.set("i", "<C-S-SPACE>", vim.lsp.buf.signature_help, { desc = 'LSP signature help' })
 vim.api.nvim_create_user_command('CopyRelPath', function ()
   local full_path = vim.api.nvim_buf_get_name(0)
   local relative_path = vim.fn.fnamemodify(full_path, ':.')
