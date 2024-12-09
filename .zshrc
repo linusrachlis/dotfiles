@@ -17,9 +17,7 @@ ZSH_THEME="random"
 ZSH_THEME_RANDOM_CANDIDATES=(
     "awesomepanda"
     "josh"
-    "mh"
     "cloud"
-    "macovsky-ruby"
     "refined"
     "oldgallois"
 )
