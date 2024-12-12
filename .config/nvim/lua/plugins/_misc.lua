@@ -3,6 +3,15 @@ return {
     "numToStr/prettierrc.nvim",
     "numToStr/Comment.nvim",
     {
+        "nvim-treesitter/nvim-treesitter-context",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter"
+        },
+        opts = {
+            enable = true,
+        }
+    },
+    {
         'echasnovski/mini.files',
         version = '*',
         opts = {
