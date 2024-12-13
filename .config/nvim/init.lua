@@ -116,39 +116,13 @@ vim.keymap.set('n', 'k', 'gk')
 vim.keymap.set('n', '<leader>bl', '<CMD>set bg=light<CR>', { desc = 'Set light background' })
 vim.keymap.set('n', '<leader>bd', '<CMD>set bg=dark<CR>', { desc = 'Set dark background' })
 
--- Copy GH link
-vim.api.nvim_create_user_command('GithubCopyLink', function ()
-  local commit_sha = vim.fn.system('echo -n $(git rev-parse HEAD)')
-  local full_path = vim.api.nvim_buf_get_name(0)
-  local relative_path = vim.fn.fnamemodify(full_path, ':.')
-  local gh_main_url = vim.fn.system('echo -n $(gh repo view --json url -q .url)')
-
-  local line_expr_for_url
-  -- The visual line mode doesn't quite work because the marks get the most
-  -- recent visual selection but not the current
-  --
-  -- local is_visual_line_mode = vim.fn.mode() == 'V'
-  -- if is_visual_line_mode then
-    -- local start_pos = vim.fn.getpos("'<")
-    -- local end_pos = vim.fn.getpos("'>")
-    -- local start_line = start_pos[2]
-    -- local end_line = end_pos[2]
-    -- line_expr_for_url = "L" .. start_line .. "-L" .. end_line
-  -- else
-    local line_number = vim.api.nvim_win_get_cursor(0)[1]
-    line_expr_for_url = "L" .. line_number
-  -- end
-
-  local full_gh_permalink = gh_main_url .. "/blob/" .. commit_sha .. "/" .. relative_path .. "#" .. line_expr_for_url
-  print(full_gh_permalink)
-  vim.fn.setreg('+', full_gh_permalink)
-end, {})
-vim.keymap.set({'n', 'v'}, '<leader>gh', '<cmd>GithubCopyLink<CR>', { desc = 'Copy Github permalink' })
+-- LSP shortcuts
 vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = 'LSP rename' })
 vim.keymap.set("n", "<leader>li", vim.lsp.buf.hover, { desc = 'LSP show symbol info' })
-vim.keymap.set("n", "<leader>lh", vim.lsp.buf.document_highlight, { desc = 'LSP highlight references' })
 vim.keymap.set("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = 'LSP signature help' })
 vim.keymap.set("i", "<C-S-SPACE>", vim.lsp.buf.signature_help, { desc = 'LSP signature help' })
+
+-- Copy file path relative to CWD
 vim.api.nvim_create_user_command('CopyRelPath', function ()
   local full_path = vim.api.nvim_buf_get_name(0)
   local relative_path = vim.fn.fnamemodify(full_path, ':.')
