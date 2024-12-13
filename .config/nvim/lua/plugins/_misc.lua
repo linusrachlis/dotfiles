@@ -1,5 +1,4 @@
 return {
-    "gpanders/editorconfig.nvim",
     "numToStr/prettierrc.nvim",
     "numToStr/Comment.nvim",
     {
