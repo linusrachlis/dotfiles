@@ -1,7 +1,7 @@
 # This is Git's per-user configuration file.
 [user]
-	name = Linus Rachlis
-	email = linus@rachlis.net
+    name = Linus Rachlis
+    email = linus@rachlis.net
 [core]
     autocrlf = input
     editor = nvim
@@ -24,8 +24,8 @@
 [grep]
     lineNumber = true
 [push]
-	autoSetupRemote = true
+    autoSetupRemote = true
 [init]
-	defaultBranch = main
+    defaultBranch = main
 [include]
     path = ~/.gitconfig_extra
