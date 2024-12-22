@@ -1,5 +1,6 @@
 return {
     'nvim-lualine/lualine.nvim',
+    enabled = false,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
         always_show_tabline = true,

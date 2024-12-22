@@ -31,15 +31,14 @@ vim.opt.mouse = 'a'
 --  See `:help 'clipboard'`
 vim.opt.clipboard = 'unnamedplus'
 
--- Enable break indent
-vim.opt.breakindent = true
-vim.opt.expandtab = true    -- Use spaces instead of tabs
-vim.opt.shiftwidth = 4      -- Number of spaces for each step of indent
-vim.opt.tabstop = 4         -- Number of spaces a tab counts for
-vim.opt.softtabstop = 4     -- Number of spaces a tab counts for while editing
-vim.opt.smartindent = true  -- Insert indents automatically
-vim.opt.shiftround = true   -- Round indent to multiple of 'shiftwidth'
-vim.opt.autoindent = true   -- Copy indent from current line when starting a new line
+vim.opt.breakindent = true -- Enable break indent
+vim.opt.expandtab = true   -- Use spaces instead of tabs
+vim.opt.shiftwidth = 4     -- Number of spaces for each step of indent
+vim.opt.tabstop = 4        -- Number of spaces a tab counts for
+vim.opt.softtabstop = 4    -- Number of spaces a tab counts for while editing
+vim.opt.smartindent = true -- Insert indents automatically
+vim.opt.shiftround = true  -- Round indent to multiple of 'shiftwidth'
+vim.opt.autoindent = true  -- Copy indent from current line when starting a new line
 vim.opt.textwidth = 0
 
 
@@ -83,13 +82,14 @@ require("config.lazy")
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
--- Clear search and LSP highlights on search on pressing <Esc> in normal mode
-vim.keymap.set('n', '<Esc>', function ()
-  vim.cmd('nohls')
-  if vim.lsp.buf_is_attached() then
-    vim.lsp.buf.clear_references()
-  end
-end)
+-- Lua exec helpers
+vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<cr>", { desc = "Source entire file" })
+vim.keymap.set("n", "<leader>x", "<cmd>.lua<cr>", { desc = "Source current line" })
+vim.keymap.set("v", "<leader>x", "<cmd>lua<cr>", { desc = "Source visual selection" })
+vim.keymap.set('n', '<leader>rc', '<cmd>luafile $MYVIMRC<CR>', { desc = 'Reload Neovim config' })
+
+-- Clear search highlights on pressing <Esc> in normal mode
+vim.keymap.set('n', '<Esc>', '<cmd>nohls<cr>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
@@ -105,9 +105,6 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
--- Quick reload config
-vim.keymap.set('n', '<leader>rc', '<cmd>luafile $MYVIMRC<CR>', { desc = 'Reload Neovim config' })
-
 -- Make j and k act as expected when lines are soft-wrapped
 vim.keymap.set('n', 'j', 'gj')
 vim.keymap.set('n', 'k', 'gk')
@@ -117,43 +114,18 @@ vim.keymap.set('n', '<leader>bl', '<CMD>set bg=light<CR>', { desc = 'Set light b
 vim.keymap.set('n', '<leader>bd', '<CMD>set bg=dark<CR>', { desc = 'Set dark background' })
 
 -- LSP shortcuts
-vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = 'LSP rename' })
-vim.keymap.set("n", "<leader>li", vim.lsp.buf.hover, { desc = 'LSP show symbol info' })
+-- The first two are inconsistent with the others, but are standard in future Neovim versions
+vim.keymap.set("n", "grn", vim.lsp.buf.rename, { desc = 'LSP rename' })
+vim.keymap.set("n", "gra", vim.lsp.buf.code_action, { desc = 'LSP code action' })
+vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = 'LSP format' })
+-- NTS: K (S-k) is by default mapped to vim.lsp.buf.hover
 vim.keymap.set("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = 'LSP signature help' })
 vim.keymap.set("i", "<C-S-SPACE>", vim.lsp.buf.signature_help, { desc = 'LSP signature help' })
 
 -- Copy file path relative to CWD
-vim.api.nvim_create_user_command('CopyRelPath', function ()
-  local full_path = vim.api.nvim_buf_get_name(0)
-  local relative_path = vim.fn.fnamemodify(full_path, ':.')
-  print(relative_path)
-  vim.fn.setreg('+', relative_path)
+vim.api.nvim_create_user_command('CopyRelPath', function()
+    local full_path = vim.api.nvim_buf_get_name(0)
+    local relative_path = vim.fn.fnamemodify(full_path, ':.')
+    print(relative_path)
+    vim.fn.setreg('+', relative_path)
 end, {})
-
--- Mini.files explorer
-local miniFiles = require('mini.files')
-vim.keymap.set(
-  "n",
-  "<leader>fm",
-  function () miniFiles.open(vim.api.nvim_buf_get_name(0)) end,
-  { desc = 'Mini.files - directory of current file' }
-)
-vim.keymap.set("n", "<leader>fM", miniFiles.open, { desc = 'Mini.files - CWD' })
-
--- Telescope
-local telescope_builtins = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', telescope_builtins.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fg', telescope_builtins.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fcg', telescope_builtins.grep_string, { desc = 'Telescope grep string under cursor' })
-vim.keymap.set('n', '<leader>fb', telescope_builtins.buffers, { desc = 'Telescope buffers' })
-vim.keymap.set('n', '<leader>fh', telescope_builtins.help_tags, { desc = 'Telescope help tags' })
-vim.keymap.set('n', '<leader>fr', telescope_builtins.resume, { desc = 'Telescope resume' })
-vim.keymap.set("n", "<leader>flr", telescope_builtins.lsp_references, { desc = 'Telescope LSP references' })
-
--- FzfLua works better for some things
-local fzflua = require('fzf-lua')
-vim.keymap.set("n", "<leader>fp", fzflua.commands, { desc = 'Fzf command pallette' })
-vim.keymap.set("n", "<leader>fld",  fzflua.lsp_document_symbols, { desc = 'Fzf LSP document symbols' })
-vim.keymap.set("n", "<leader>flw", fzflua.lsp_live_workspace_symbols, { desc = 'Fzf LSP workspace symbols' })
-vim.keymap.set("n", "<leader>fdd", fzflua.lsp_document_diagnostics, { desc = 'Fzf LSP document diagnostics' })
-vim.keymap.set("n", "<leader>fdw", fzflua.lsp_workspace_diagnostics, { desc = 'Fzf LSP workspace diagnostics' })
