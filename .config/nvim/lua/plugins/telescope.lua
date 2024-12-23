@@ -1,12 +1,15 @@
 return {
   'nvim-telescope/telescope.nvim',
   branch = '0.1.x',
+  lazy = false,
   dependencies = {
     'nvim-lua/plenary.nvim',
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
   },
   config = function()
     local telescope = require('telescope')
+
+    -- Set default theme for all pickers
     local default_theme = "ivy"
     local pickers = {}
     for k, _ in pairs(require 'telescope.builtin') do
@@ -14,6 +17,19 @@ return {
     end
     telescope.setup { pickers = pickers }
     telescope.load_extension('fzf')
+
+    -- Custom commands
+    vim.api.nvim_create_user_command('FindNvimConfig', function()
+      require 'telescope.builtin'.find_files {
+        cwd = vim.fn.stdpath('config')
+      }
+    end, {})
+    vim.api.nvim_create_user_command('FindPluginCode', function()
+      require 'telescope.builtin'.find_files {
+        ---@diagnostic disable-next-line: param-type-mismatch
+        cwd = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy')
+      }
+    end, {})
   end,
   keys = {
     { '<leader>ff',  "<cmd>Telescope find_files<CR>",     desc = 'Telescope find files' },
