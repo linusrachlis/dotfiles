@@ -9,7 +9,7 @@ return {
     local telescope = require('telescope')
     local default_theme = "ivy"
     local pickers = {}
-    for k, v in pairs(require 'telescope.builtin') do
+    for k, _ in pairs(require 'telescope.builtin') do
       pickers[k] = { theme = default_theme }
     end
     telescope.setup { pickers = pickers }
