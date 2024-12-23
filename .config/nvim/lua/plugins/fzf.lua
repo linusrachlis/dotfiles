@@ -12,6 +12,6 @@ return {
     { "<leader>flw", "<cmd>FzfLua lsp_live_workspace_symbols<CR>", desc = 'Fzf LSP workspace symbols' },
     { "<leader>fdd", "<cmd>FzfLua lsp_document_diagnostics<CR>",   desc = 'Fzf LSP document diagnostics' },
     { "<leader>fdw", "<cmd>FzfLua lsp_workspace_diagnostics<CR>",  desc = 'Fzf LSP workspace diagnostics' },
-    { "<leader>fzb", "<cmd>FzfLua builtin<CR>",  desc = 'Fzf builtin pickers' },
+    { "<leader>fzb", "<cmd>FzfLua builtin<CR>",                    desc = 'Fzf builtin pickers' },
   },
 }
