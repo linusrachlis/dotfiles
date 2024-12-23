@@ -7,20 +7,12 @@ return {
   },
   config = function()
     local telescope = require('telescope')
-    telescope.setup {
-      pickers = {
-        find_files = { theme = "ivy" },
-        live_grep = { theme = "ivy" },
-        grep_string = { theme = "ivy" },
-        buffers = { theme = "ivy" },
-        help_tags = { theme = "ivy" },
-        resume = { theme = "ivy" },
-        pickers = { theme = "ivy" },
-        lsp_references = { theme = "ivy" },
-        keymaps = { theme = "ivy" },
-        builtin = { theme = "ivy" },
-      },
-    }
+    local default_theme = "ivy"
+    local pickers = {}
+    for k, v in pairs(require 'telescope.builtin') do
+      pickers[k] = { theme = default_theme }
+    end
+    telescope.setup { pickers = pickers }
     telescope.load_extension('fzf')
   end,
   keys = {
