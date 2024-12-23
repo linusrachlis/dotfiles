@@ -1,11 +1,10 @@
 return {
-    "numToStr/prettierrc.nvim",
-    "numToStr/Comment.nvim",
-    {
-        'echasnovski/mini.trailspace',
-        version = '*',
-    },
-    {
-        "tpope/vim-surround",
-    },
+  "numToStr/prettierrc.nvim",
+  "numToStr/Comment.nvim",
+  "folke/which-key.nvim",
+  "tpope/vim-surround",
+  {
+    'echasnovski/mini.trailspace',
+    version = '*',
+  },
 }
