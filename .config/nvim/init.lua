@@ -125,8 +125,8 @@ vim.keymap.set("i", "<C-S-SPACE>", vim.lsp.buf.signature_help, { desc = 'LSP sig
 
 -- Copy file path relative to CWD
 vim.api.nvim_create_user_command('CopyRelPath', function()
-    local full_path = vim.api.nvim_buf_get_name(0)
-    local relative_path = vim.fn.fnamemodify(full_path, ':.')
-    print(relative_path)
-    vim.fn.setreg('+', relative_path)
+  local full_path = vim.api.nvim_buf_get_name(0)
+  local relative_path = vim.fn.fnamemodify(full_path, ':.')
+  print(relative_path)
+  vim.fn.setreg('+', relative_path)
 end, {})
