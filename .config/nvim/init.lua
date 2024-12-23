@@ -85,7 +85,8 @@ require("config.lazy")
 -- Lua exec helpers
 vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<cr>", { desc = "Source entire file" })
 vim.keymap.set("n", "<leader>x", "<cmd>.lua<cr>", { desc = "Source current line" })
-vim.keymap.set("v", "<leader>x", "<cmd>lua<cr>", { desc = "Source visual selection" })
+-- Note: needs ':' instead of '<cmd>' to work with visual selection (linewise only)
+vim.keymap.set("v", "<leader>x", ":lua<cr>", { desc = "Source visual selection" })
 vim.keymap.set('n', '<leader>rc', '<cmd>luafile $MYVIMRC<CR>', { desc = 'Reload Neovim config' })
 
 -- Clear search highlights on pressing <Esc> in normal mode
