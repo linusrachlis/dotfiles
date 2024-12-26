@@ -36,6 +36,7 @@ vim.opt.expandtab = true   -- Use spaces instead of tabs
 vim.opt.shiftwidth = 4     -- Number of spaces for each step of indent
 vim.opt.tabstop = 4        -- Number of spaces a tab counts for
 vim.opt.softtabstop = 4    -- Number of spaces a tab counts for while editing
+-- TODO: disable for md files
 vim.opt.smartindent = true -- Insert indents automatically
 vim.opt.shiftround = true  -- Round indent to multiple of 'shiftwidth'
 vim.opt.autoindent = true  -- Copy indent from current line when starting a new lineadofjasdf
@@ -130,3 +131,18 @@ vim.api.nvim_create_user_command('CopyRelPath', function()
   print(relative_path)
   vim.fn.setreg('+', relative_path)
 end, {})
+
+-- Copy GH link
+vim.keymap.set({'n', 'v'}, '<leader>gy', function ()
+  local commit_sha = vim.fn.system('echo -n $(git rev-parse HEAD)')
+  local full_path = vim.api.nvim_buf_get_name(0)
+  local relative_path = vim.fn.fnamemodify(full_path, ':.')
+  local gh_main_url = vim.fn.system('echo -n $(gh repo view --json url -q .url)')
+
+  local line_number = vim.api.nvim_win_get_cursor(0)[1]
+  local line_expr_for_url = "L" .. line_number
+
+  local full_gh_permalink = gh_main_url .. "/blob/" .. commit_sha .. "/" .. relative_path .. "#" .. line_expr_for_url
+  print(full_gh_permalink)
+  vim.fn.setreg('+', full_gh_permalink)
+end, { desc = 'Git Yank Permalink' })
