@@ -40,7 +40,7 @@ vim.opt.softtabstop = 4    -- Number of spaces a tab counts for while editing
 vim.opt.smartindent = true -- Insert indents automatically
 vim.opt.shiftround = true  -- Round indent to multiple of 'shiftwidth'
 vim.opt.autoindent = true  -- Copy indent from current line when starting a new lineadofjasdf
-vim.opt.textwidth = 80     -- Default text width
+vim.opt.textwidth = 0      -- Default text width
 
 
 -- Save undo history

@@ -23,8 +23,8 @@ require("lazy").setup({
   },
   -- install = { missing = false },
   -- automatically check for plugin updates
-  checker = {
-    enabled = true,
-    frequency = 86400, -- daily
-  },
+  -- checker = {
+  --   enabled = true,
+  --   frequency = 86400, -- daily
+  -- },
 })

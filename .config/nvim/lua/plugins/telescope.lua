@@ -38,8 +38,6 @@ return {
     { "<leader>fld", "<cmd>Telescope lsp_document_symbols<CR>",       desc = 'Telescope LSP document symbols' },
     { "<leader>flw", "<cmd>Telescope lsp_live_workspace_symbols<CR>", desc = 'Telescope LSP workspace symbols' },
     { "<leader>flr", "<cmd>Telescope lsp_references<CR>",             desc = 'Telescope LSP references' },
-    { "<leader>fdd", "<cmd>Telescope lsp_document_diagnostics<CR>",   desc = 'Telescope LSP document diagnostics' },
-    { "<leader>fdw", "<cmd>Telescope lsp_workspace_diagnostics<CR>",  desc = 'Telescope LSP workspace diagnostics' },
     { '<leader>fb',  "<cmd>Telescope buffers<CR>",                    desc = 'Telescope buffers' },
     { '<leader>fh',  "<cmd>Telescope help_tags<CR>",                  desc = 'Telescope help tags' },
     { '<leader>fr',  "<cmd>Telescope resume<CR>",                     desc = 'Telescope resume latest picker' },
