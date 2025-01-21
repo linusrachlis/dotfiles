@@ -146,3 +146,9 @@ vim.keymap.set({'n', 'v'}, '<leader>gy', function ()
   print(full_gh_permalink)
   vim.fn.setreg('+', full_gh_permalink)
 end, { desc = 'Git Yank Permalink' })
+
+-- Easier window resizing
+vim.keymap.set('n', '<C-=>', '<cmd>:resize +5<CR>')
+vim.keymap.set('n', '<C-->', '<cmd>:resize -5<CR>')
+vim.keymap.set('n', '<C-.>', '<cmd>:vertical resize +5<CR>')
+vim.keymap.set('n', '<C-,>', '<cmd>:vertical resize -5<CR>')
