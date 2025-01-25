@@ -88,7 +88,7 @@ vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<cr>", { desc = "Source e
 vim.keymap.set("n", "<leader>x", "<cmd>.lua<cr>", { desc = "Source current line" })
 -- Note: needs ':' instead of '<cmd>' to work with visual selection (linewise only)
 vim.keymap.set("v", "<leader>x", ":lua<cr>", { desc = "Source visual selection" })
-vim.keymap.set('n', '<leader>rc', '<cmd>luafile $MYVIMRC<CR>', { desc = 'Reload Neovim config' })
+vim.keymap.set('n', '<leader>rc', '<cmd>luafile $MYVIMRC<CR><cmd>echo $MYVIMRC . " sourced!"<CR>', { desc = 'Reload Neovim config' })
 
 -- Clear search highlights on pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohls<cr>')
@@ -122,7 +122,7 @@ vim.keymap.set("n", "gra", vim.lsp.buf.code_action, { desc = 'LSP code action' }
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = 'LSP format' })
 -- NTS: K (S-k) is by default mapped to vim.lsp.buf.hover
 vim.keymap.set("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = 'LSP signature help' })
-vim.keymap.set("i", "<C-S-SPACE>", vim.lsp.buf.signature_help, { desc = 'LSP signature help' })
+vim.keymap.set("i", "<C-/>", vim.lsp.buf.signature_help, { desc = 'LSP signature help' })
 
 -- Copy file path relative to CWD
 vim.api.nvim_create_user_command('CopyRelPath', function()
