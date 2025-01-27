@@ -3,17 +3,19 @@ return {
   dependencies = {
     { 'echasnovski/mini.nvim',       version = false },
     { "nvim-tree/nvim-web-devicons", opts = {} },
-    { "lewis6991/gitsigns.nvim", opts = {} },
+    { "lewis6991/gitsigns.nvim",     opts = {} },
   },
   priority = 1000,
   lazy = false,
   opts = {
-    quickfile = { enabled = true },
-    statuscolumn = { enabled = true },
-    words = { enabled = true },
     git = { enabled = true },
     gitbrowse = { enabled = true },
+    indent = { enabled = true },
     lazygit = { enabled = true },
+    quickfile = { enabled = true },
+    scope = { enabled = true },
+    statuscolumn = { enabled = true },
+    words = { enabled = true },
   },
   keys = {
     { "<leader>]",  function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",              mode = { "n", "t" } },
