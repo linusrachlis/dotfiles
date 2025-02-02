@@ -1,5 +1,6 @@
 return {
   "ibhagwan/fzf-lua",
+  enabled = false,
   lazy = false,
   -- optional for icon support
   dependencies = {
