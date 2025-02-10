@@ -38,6 +38,9 @@ alias vim=nvim
 # Nvim easy session resume
 alias nvims='nvim -S Session.vim'
 
+# Easy kitty command sending
+alias k='kitty @'
+
 if [ -f ~/.config/zsh/aliases_extra ]; then
     source ~/.config/zsh/aliases_extra
 fi
