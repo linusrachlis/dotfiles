@@ -8,6 +8,7 @@ return {
   priority = 1000,
   lazy = false,
   opts = {
+    explorer = { enabled = true },
     git = { enabled = true },
     gitbrowse = { enabled = true },
     indent = { enabled = true },
@@ -19,6 +20,8 @@ return {
     words = { enabled = true },
   },
   keys = {
+    { '<leader>e',   function() Snacks.picker.explorer() end,                                desc = "Snacks Explorer" },
+
     ---
     -- Pickers
     ---
