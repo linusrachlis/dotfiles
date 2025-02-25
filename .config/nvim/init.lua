@@ -88,7 +88,8 @@ vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<cr>", { desc = "Source e
 vim.keymap.set("n", "<leader>x", "<cmd>.lua<cr>", { desc = "Source current line" })
 -- Note: needs ':' instead of '<cmd>' to work with visual selection (linewise only)
 vim.keymap.set("v", "<leader>x", ":lua<cr>", { desc = "Source visual selection" })
-vim.keymap.set('n', '<leader>rc', '<cmd>luafile $MYVIMRC<CR><cmd>echo $MYVIMRC . " sourced!"<CR>', { desc = 'Reload Neovim config' })
+vim.keymap.set('n', '<leader>rc', '<cmd>luafile $MYVIMRC<CR><cmd>echo $MYVIMRC . " sourced!"<CR>',
+  { desc = 'Reload Neovim config' })
 
 -- Clear search highlights on pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohls<cr>')
@@ -124,19 +125,34 @@ vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = 'LSP format' })
 vim.keymap.set("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = 'LSP signature help' })
 vim.keymap.set("i", "<C-/>", vim.lsp.buf.signature_help, { desc = 'LSP signature help' })
 
+local function get_relative_file_path()
+  local full_path = vim.api.nvim_buf_get_name(0)
+  return vim.fn.fnamemodify(full_path, ':.')
+end
+
 -- Copy file path relative to CWD
 vim.api.nvim_create_user_command('CopyRelPath', function()
-  local full_path = vim.api.nvim_buf_get_name(0)
-  local relative_path = vim.fn.fnamemodify(full_path, ':.')
+  local relative_path = get_relative_file_path()
   print(relative_path)
   vim.fn.setreg('+', relative_path)
 end, {})
+vim.keymap.set('n', "<leader>yp", '<cmd>CopyRelPath<CR>', { desc = 'Copy file path relative to CWD' })
+
+-- Copy file path relative to CWD with line number in a qflist-compatible format
+vim.api.nvim_create_user_command('CopyRelPathWithLineNumber', function()
+  local relative_path = get_relative_file_path()
+  local line_number = vim.api.nvim_win_get_cursor(0)[1]
+  local full_result = relative_path .. ":" .. line_number
+  print(full_result)
+  vim.fn.setreg('+', full_result)
+end, {})
+vim.keymap.set('n', "<leader>yP", '<cmd>CopyRelPathWithLineNumber<CR>',
+  { desc = 'Copy file path with line number relative to CWD' })
 
 -- Copy GH link
-vim.keymap.set({'n', 'v'}, '<leader>gy', function ()
+vim.api.nvim_create_user_command('CopyGithubPermalink', function()
   local commit_sha = vim.fn.system('echo -n $(git rev-parse HEAD)')
-  local full_path = vim.api.nvim_buf_get_name(0)
-  local relative_path = vim.fn.fnamemodify(full_path, ':.')
+  local relative_path = get_relative_file_path()
   local gh_main_url = vim.fn.system('echo -n $(gh repo view --json url -q .url)')
 
   local line_number = vim.api.nvim_win_get_cursor(0)[1]
@@ -145,7 +161,8 @@ vim.keymap.set({'n', 'v'}, '<leader>gy', function ()
   local full_gh_permalink = gh_main_url .. "/blob/" .. commit_sha .. "/" .. relative_path .. "#" .. line_expr_for_url
   print(full_gh_permalink)
   vim.fn.setreg('+', full_gh_permalink)
-end, { desc = 'Git Yank Permalink' })
+end, {})
+vim.keymap.set({ 'n', 'v' }, '<leader>gy', '<cmd>CopyGithubPermalink<CR>', { desc = 'Git Yank Permalink' })
 
 -- Easier window navigation
 vim.keymap.set('n', '<C-h>', '<C-w>h')
@@ -154,7 +171,7 @@ vim.keymap.set('n', '<C-k>', '<C-w>k')
 vim.keymap.set('n', '<C-j>', '<C-w>j')
 
 -- Easier window resizing
-vim.keymap.set('n', '<C-=>', '<cmd>:resize +5<CR>')
-vim.keymap.set('n', '<C-->', '<cmd>:resize -5<CR>')
-vim.keymap.set('n', '<C-.>', '<cmd>:vertical resize +5<CR>')
-vim.keymap.set('n', '<C-,>', '<cmd>:vertical resize -5<CR>')
+vim.keymap.set('n', '<C-=>', '<cmd>resize +5<CR>')
+vim.keymap.set('n', '<C-->', '<cmd>resize -5<CR>')
+vim.keymap.set('n', '<C-.>', '<cmd>vertical resize +5<CR>')
+vim.keymap.set('n', '<C-,>', '<cmd>vertical resize -5<CR>')
