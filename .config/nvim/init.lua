@@ -80,16 +80,11 @@ vim.opt.hlsearch = true
 -- [[ Load Plugin Manager ]]
 require("config.lazy")
 
--- [[ Basic Keymaps ]]
+-- [[ Basic Keymaps and User Commands ]]
 --  See `:help vim.keymap.set()`
 
--- Lua exec helpers
-vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<cr>", { desc = "Source entire file" })
-vim.keymap.set("n", "<leader>x", "<cmd>.lua<cr>", { desc = "Source current line" })
--- Note: needs ':' instead of '<cmd>' to work with visual selection (linewise only)
-vim.keymap.set("v", "<leader>x", ":lua<cr>", { desc = "Source visual selection" })
-vim.keymap.set('n', '<leader>rc', '<cmd>luafile $MYVIMRC<CR><cmd>echo $MYVIMRC . " sourced!"<CR>',
-  { desc = 'Reload Neovim config' })
+-- Reload config
+vim.api.nvim_create_user_command("ReloadConfig", "luafile $MYVIMRC", { desc = "Reload Neovim config" })
 
 -- Clear search highlights on pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohls<cr>')
@@ -97,8 +92,7 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohls<cr>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
--- vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
--- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Show [D]iagnostic error messages' })
 
 -- Quickfix navigation
 vim.keymap.set('n', ']c', '<cmd>cn<CR>', { desc = 'Go to next Quickfix item' })
@@ -113,58 +107,57 @@ vim.keymap.set('n', '[c', '<cmd>cp<CR>', { desc = 'Go to previous Quickfix item'
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Make j and k act as expected when lines are soft-wrapped
-vim.keymap.set('n', 'j', 'gj')
-vim.keymap.set('n', 'k', 'gk')
+vim.keymap.set({'n', 'v'}, 'j', 'gj')
+vim.keymap.set({'n', 'v'}, 'k', 'gk')
 
 -- Easy light/dark toggling
-vim.keymap.set('n', '<leader>bl', '<CMD>set bg=light<CR>', { desc = 'Set light background' })
-vim.keymap.set('n', '<leader>bd', '<CMD>set bg=dark<CR>', { desc = 'Set dark background' })
+vim.keymap.set('n', '<leader><leader>bl', '<CMD>set bg=light<CR>', { desc = 'Set light background' })
+vim.keymap.set('n', '<leader><leader>bd', '<CMD>set bg=dark<CR>', { desc = 'Set dark background' })
 
 -- LSP shortcuts
--- The first two are inconsistent with the others, but are standard in future Neovim versions
-vim.keymap.set("n", "grn", vim.lsp.buf.rename, { desc = 'LSP rename' })
-vim.keymap.set("n", "gra", vim.lsp.buf.code_action, { desc = 'LSP code action' })
+vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = 'LSP rename' })
+vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = 'LSP code action' })
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = 'LSP format' })
 -- NTS: K (S-k) is by default mapped to vim.lsp.buf.hover
 vim.keymap.set("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = 'LSP signature help' })
 vim.keymap.set("i", "<C-/>", vim.lsp.buf.signature_help, { desc = 'LSP signature help' })
 
 local function get_relative_file_path()
-  local full_path = vim.api.nvim_buf_get_name(0)
-  return vim.fn.fnamemodify(full_path, ':.')
+    local full_path = vim.api.nvim_buf_get_name(0)
+    return vim.fn.fnamemodify(full_path, ':.')
 end
 
 -- Copy file path relative to CWD
 vim.api.nvim_create_user_command('CopyRelPath', function()
-  local relative_path = get_relative_file_path()
-  print(relative_path)
-  vim.fn.setreg('+', relative_path)
+    local relative_path = get_relative_file_path()
+    print(relative_path)
+    vim.fn.setreg('+', relative_path)
 end, {})
 vim.keymap.set('n', "<leader>yp", '<cmd>CopyRelPath<CR>', { desc = 'Copy file path relative to CWD' })
 
 -- Copy file path relative to CWD with line number in a qflist-compatible format
 vim.api.nvim_create_user_command('CopyRelPathWithLineNumber', function()
-  local relative_path = get_relative_file_path()
-  local line_number = vim.api.nvim_win_get_cursor(0)[1]
-  local full_result = relative_path .. ":" .. line_number
-  print(full_result)
-  vim.fn.setreg('+', full_result)
+    local relative_path = get_relative_file_path()
+    local line_number = vim.api.nvim_win_get_cursor(0)[1]
+    local full_result = relative_path .. ":" .. line_number
+    print(full_result)
+    vim.fn.setreg('+', full_result)
 end, {})
 vim.keymap.set('n', "<leader>yP", '<cmd>CopyRelPathWithLineNumber<CR>',
-  { desc = 'Copy file path with line number relative to CWD' })
+    { desc = 'Copy file path with line number relative to CWD' })
 
 -- Copy GH link
 vim.api.nvim_create_user_command('CopyGithubPermalink', function()
-  local commit_sha = vim.fn.system('echo -n $(git rev-parse HEAD)')
-  local relative_path = get_relative_file_path()
-  local gh_main_url = vim.fn.system('echo -n $(gh repo view --json url -q .url)')
+    local commit_sha = vim.fn.system('echo -n $(git rev-parse HEAD)')
+    local relative_path = get_relative_file_path()
+    local gh_main_url = vim.fn.system('echo -n $(gh repo view --json url -q .url)')
 
-  local line_number = vim.api.nvim_win_get_cursor(0)[1]
-  local line_expr_for_url = "L" .. line_number
+    local line_number = vim.api.nvim_win_get_cursor(0)[1]
+    local line_expr_for_url = "L" .. line_number
 
-  local full_gh_permalink = gh_main_url .. "/blob/" .. commit_sha .. "/" .. relative_path .. "#" .. line_expr_for_url
-  print(full_gh_permalink)
-  vim.fn.setreg('+', full_gh_permalink)
+    local full_gh_permalink = gh_main_url .. "/blob/" .. commit_sha .. "/" .. relative_path .. "#" .. line_expr_for_url
+    print(full_gh_permalink)
+    vim.fn.setreg('+', full_gh_permalink)
 end, {})
 vim.keymap.set({ 'n', 'v' }, '<leader>gy', '<cmd>CopyGithubPermalink<CR>', { desc = 'Git Yank Permalink' })
 
