@@ -6,6 +6,7 @@ return {
 
     lspconfig.pyright.setup({ capabilities = capabilities })
     lspconfig.ts_ls.setup({ capabilities = capabilities })
+    lspconfig.terraformls.setup({ capabilities = capabilities })
     lspconfig.lua_ls.setup {
       on_init = function(client)
         if client.workspace_folders then

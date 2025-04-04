@@ -3,7 +3,6 @@ return {
   lazy = false,
   ---@module 'oil'
   ---@type oil.SetupOpts
-  lazy = false,
   opts = {},
   keys = {
     { "-", "<CMD>Oil<CR>", desc = "Open parent directory" }

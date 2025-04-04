@@ -41,6 +41,7 @@ alias nvims='nvim -S Session.vim'
 # Easy kitty command sending
 alias k='kitty @'
 
+# Aliases specific to the current setup and not to be tracked in dotfiles
 if [ -f ~/.config/zsh/aliases_extra ]; then
     source ~/.config/zsh/aliases_extra
 fi
