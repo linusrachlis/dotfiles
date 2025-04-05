@@ -26,6 +26,7 @@ return {
     -- Pickers
     ---
     { '<leader>f',         function() Snacks.picker.files() end,                                   desc = "Find Files" },
+    { "<leader>r",         function() Snacks.picker.recent() end,                                  desc = "Recent Files" },
     { "<leader><leader>f", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
     { '<leader>/',         function() Snacks.picker.grep() end,                                    desc = "Grep" },
     { '<leader><leader>/', function() Snacks.picker.grep({ cwd = vim.fn.stdpath("config") }) end,  desc = "Grep Config Files" },

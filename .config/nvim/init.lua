@@ -87,6 +87,10 @@ vim.opt.completeopt = "menu,popup,fuzzy"
 -- [[ Setting plugin options ]]
 -- Use node v20 for Copilot (system default is still 18)
 vim.g.copilot_node_command = "/Users/linusrachlis/.nvm/versions/node/v20.18.3/bin/node"
+-- Disable copilot inline completions (I only want it when explicitly invoked)
+vim.cmd([[
+  let g:copilot_filetypes = { '*': v:false }
+]])
 
 -- [[ Load Plugin Manager ]]
 require("config.lazy")
