@@ -38,6 +38,8 @@ alias vim=nvim
 # Nvim easy session resume
 alias nvims='nvim -S Session.vim'
 
+alias lg=lazygit
+
 # Easy kitty command sending
 alias k='kitty @'
 
