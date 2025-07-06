@@ -155,6 +155,10 @@ end, {})
 vim.keymap.set('n', "<leader>yP", '<cmd>CopyRelPathWithLineNumber<CR>',
   { desc = 'Copy file path with line number relative to CWD' })
 
+-- :cd or :lcd to directory of current file
+vim.api.nvim_create_user_command("CdCurrentFile", "cd %:p:h", {})
+vim.api.nvim_create_user_command("LcdCurrentFile", "lcd %:p:h", {})
+
 -- Copy GH link
 vim.api.nvim_create_user_command('CopyGithubPermalink', function()
   local commit_sha = vim.fn.system('echo -n $(git rev-parse HEAD)')
