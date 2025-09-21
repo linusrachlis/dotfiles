@@ -4,15 +4,26 @@
     email = linus@rachlis.net
 [core]
     autocrlf = input
-    editor = nvim
+    editor = nvim -u NORC
+
 [merge]
-    tool = vscode
+    tool = nvim
+[mergetool]
+    keepBackup = false
+    prompt = true
 [mergetool "vscode"]
     cmd = code --wait $MERGED
+[mergetool "nvim"]
+    cmd = "nvim -d -c \"wincmd l\" -c \"norm ]c\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\""
 [diff]
-    tool = vscode
+    tool = nvim
+[difftool]
+    prompt = true
 [difftool "vscode"]
     cmd = code --wait --diff $LOCAL $REMOTE
+[difftool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+
 [alias]
     edit-config = config -e --global
     show-skipped = !git ls-files -v|grep '^S'

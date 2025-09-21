@@ -26,10 +26,10 @@ dotfiles_git_off() {
 dotfiles_git_off # Initialize variable to 0
 
 watch() {
-    while true; do; clear; $@; sleep 1; done
+    while true; do; clear; eval $@; sleep 1; done
 }
 watch-slow() {
-    while true; do; clear; $@; sleep 10; done
+    while true; do; clear; eval $@; sleep 5; done
 }
 
 # Always use Nvim rather than vi or vim
