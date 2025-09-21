@@ -1,5 +1,6 @@
 return {
   "neovim/nvim-lspconfig",
+  dependencies = { 'saghen/blink.cmp' },
   config = function()
     local capabilities = require('blink.cmp').get_lsp_capabilities()
     local lspconfig = require('lspconfig')
@@ -7,6 +8,7 @@ return {
     lspconfig.pyright.setup({ capabilities = capabilities })
     lspconfig.ts_ls.setup({ capabilities = capabilities })
     lspconfig.terraformls.setup({ capabilities = capabilities })
+    lspconfig.phpactor.setup({ capabilities = capabilities })
     lspconfig.lua_ls.setup {
       on_init = function(client)
         if client.workspace_folders then
@@ -42,5 +44,4 @@ return {
       capabilities = capabilities
     }
   end,
-  dependencies = { 'saghen/blink.cmp' },
 }
