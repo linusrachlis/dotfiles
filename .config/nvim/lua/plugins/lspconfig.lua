@@ -3,13 +3,16 @@ return {
   dependencies = { 'saghen/blink.cmp' },
   config = function()
     local capabilities = require('blink.cmp').get_lsp_capabilities()
-    local lspconfig = require('lspconfig')
 
-    lspconfig.pyright.setup({ capabilities = capabilities })
-    lspconfig.ts_ls.setup({ capabilities = capabilities })
-    lspconfig.terraformls.setup({ capabilities = capabilities })
-    lspconfig.phpactor.setup({ capabilities = capabilities })
-    lspconfig.lua_ls.setup {
+    vim.lsp.config('pyright', { capabilities = capabilities })
+    vim.lsp.enable('pyright')
+    vim.lsp.config('ts_ls', { capabilities = capabilities })
+    vim.lsp.enable('ts_ls')
+    vim.lsp.config('terraformls', { capabilities = capabilities })
+    vim.lsp.enable('terraformls')
+    vim.lsp.config('phpactor', { capabilities = capabilities })
+    vim.lsp.enable('phpactor')
+    vim.lsp.config('lua_ls', {
       on_init = function(client)
         if client.workspace_folders then
           local path = client.workspace_folders[1].name
@@ -42,6 +45,7 @@ return {
         Lua = {}
       },
       capabilities = capabilities
-    }
+    })
+    vim.lsp.enable('lua_ls')
   end,
 }
