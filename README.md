@@ -10,10 +10,14 @@ https://mjones44.medium.com/storing-dotfiles-in-a-git-repository-53f765c0005d
 3. Install Homebrew packages:
 ```sh
 brew install git neovim fzf fnm lazygit
+brew install --cask rectangle
 ```
 4. Set up dotfiles repo
 ```sh
 git clone --bare git@github.com:linusrachlis/dotfiles.git $HOME/.dotfiles
 git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME config --local status.showUntrackedFiles no
 git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout
+
+# Run this whenever needed after pulling updates
+source dotfiles_bootstrap.sh
 ```
