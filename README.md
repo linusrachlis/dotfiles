@@ -7,12 +7,13 @@ https://mjones44.medium.com/storing-dotfiles-in-a-git-repository-53f765c0005d
 
 1. Install [Homebrew](https://brew.sh/)
 2. Install [oh-my-zsh](https://ohmyz.sh/#install)
-3. Install packages:
+3. Install Homebrew packages:
 ```sh
 brew install git neovim fzf fnm
 ```
 4. Set up dotfiles repo
 ```sh
 git clone --bare git@github.com:linusrachlis/dotfiles.git $HOME/.dotfiles
+git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME config --local status.showUntrackedFiles no
 git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout
 ```
