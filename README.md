@@ -9,7 +9,7 @@ https://mjones44.medium.com/storing-dotfiles-in-a-git-repository-53f765c0005d
 2. Install [oh-my-zsh](https://ohmyz.sh/#install)
 3. Install Homebrew packages:
 ```sh
-brew install git neovim fzf fnm
+brew install git neovim fzf fnm lazygit
 ```
 4. Set up dotfiles repo
 ```sh
