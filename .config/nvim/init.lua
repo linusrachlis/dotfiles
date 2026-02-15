@@ -133,6 +133,14 @@ local function get_relative_file_path()
   return vim.fn.fnamemodify(full_path, ':.')
 end
 
+-- Copy fully qualified file path
+vim.api.nvim_create_user_command('CopyFullPath', function()
+  local abs_path = vim.api.nvim_buf_get_name(0)
+  print(abs_path)
+  vim.fn.setreg('+', abs_path)
+end, {})
+
+
 -- Copy file path relative to CWD
 vim.api.nvim_create_user_command('CopyRelPath', function()
   local relative_path = get_relative_file_path()
@@ -152,9 +160,11 @@ end, {})
 vim.keymap.set('n', "<leader>yP", '<cmd>CopyRelPathWithLineNumber<CR>',
   { desc = 'Copy file path with line number relative to CWD' })
 
--- :cd or :lcd to directory of current file
+-- Helpers related to current directory
 vim.api.nvim_create_user_command("CdCurrentFile", "cd %:p:h", {})
 vim.api.nvim_create_user_command("LcdCurrentFile", "lcd %:p:h", {})
+vim.api.nvim_create_user_command("LocateCurrentFile", "!open %:p:h", {})
+vim.api.nvim_create_user_command("OpenCurrentFile", "!open %", {})
 
 -- Copy GH link
 vim.api.nvim_create_user_command('CopyGithubPermalink', function()
@@ -170,6 +180,9 @@ vim.api.nvim_create_user_command('CopyGithubPermalink', function()
   vim.fn.setreg('+', full_gh_permalink)
 end, {})
 vim.keymap.set({ 'n', 'v' }, '<leader>gy', '<cmd>CopyGithubPermalink<CR>', { desc = 'Git Yank Permalink' })
+
+-- Save default session file, save buffers, and quit all windows
+vim.api.nvim_create_user_command('WQ', 'mks! | wqa', {})
 
 -- Easier window navigation
 vim.keymap.set('n', '<C-h>', '<C-w>h')
