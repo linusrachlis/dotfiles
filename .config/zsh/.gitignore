@@ -1,3 +1,4 @@
 # Config parts that are different for work
 managed_blocks.sh
+work.sh
 work_*
