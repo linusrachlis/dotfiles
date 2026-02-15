@@ -10,29 +10,13 @@ rename_master_to_main() {
 }
 
 gitdotfiles() {
-    export GIT_WORKS_WITH_DOTFILES_REPO=1
+    export GIT_DIR=$HOME/.dotfiles/
+    export GIT_WORK_TREE=$HOME
 }
 
 gitnodotfiles() {
-    export GIT_WORKS_WITH_DOTFILES_REPO=0
-}
-
-gitnodotfiles # Initialize variable to 0
-
-git() {
-    if [ $GIT_WORKS_WITH_DOTFILES_REPO -eq 1 ]; then
-        command git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
-    else
-        command git $@
-    fi
-}
-
-lg() {
-    if [ $GIT_WORKS_WITH_DOTFILES_REPO -eq 1 ]; then
-        command lazygit --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
-    else
-        command lazygit $@
-    fi
+    unset GIT_DIR
+    unset GIT_WORK_TREE
 }
 
 # }}}
@@ -49,6 +33,7 @@ watch-slow() {
 alias reload_aliases='. ~/.config/zsh/aliases.sh'
 alias edit_aliases='nvim ~/.config/zsh/aliases.sh'
 
+alias lg=lazygit
 # Always use Nvim rather than vi or vim
 alias vi=nvim
 alias vim=nvim
