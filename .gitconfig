@@ -32,6 +32,7 @@
     show-dead-branches = !git branch -vv | grep 'origin/.*: gone]' | awk '{print $1}'
     remove-dead-branches = !git show-dead-branches | xargs git branch -D
     fpr = !git fetch --prune && git remove-dead-branches
+    finished-feature = !git checkout main && git fpr && git merge
 [grep]
     lineNumber = true
 [push]
