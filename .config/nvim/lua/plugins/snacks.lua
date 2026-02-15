@@ -8,7 +8,6 @@ return {
     priority = 1000,
     lazy = false,
     opts = {
-        explorer = { enabled = true },
         git = { enabled = true },
         gitbrowse = { enabled = true },
         indent = { enabled = true },
@@ -20,8 +19,6 @@ return {
         words = { enabled = true },
     },
     keys = {
-        { '<leader>e',         function() Snacks.explorer.open() end,                                                          desc = "Snacks Explorer - Toggle" },
-
         ---
         -- Pickers
         ---
@@ -32,7 +29,7 @@ return {
         { '<leader><leader>/', function() Snacks.picker.grep({ cwd = vim.fn.stdpath("config") }) end,                          desc = "Grep Config Files" },
         { "g/",                function() Snacks.picker.grep_word() end,                                                       desc = "Grep visual selection or cursor word", mode = { "n", "x" } },
         { "gO",                function() Snacks.picker.lsp_symbols() end,                                                     desc = 'LSP document symbols' },
-        { "<leader>S",         function() Snacks.picker.lsp_workspace_symbols() end,                                           desc = 'LSP workspace symbols' },
+        { "<leader>s",         function() Snacks.picker.lsp_workspace_symbols() end,                                           desc = 'LSP workspace symbols' },
         { "grr",               function() Snacks.picker.lsp_references({ jump = { tagstack = true, reuse_win = false } }) end, desc = 'LSP references' },
         { "<leader>b",         function() Snacks.picker.buffers() end,                                                         desc = 'Buffers Picker' },
         { "<leader>h",         function() Snacks.picker.help() end,                                                            desc = "Help Pages Picker" },
