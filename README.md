@@ -9,7 +9,8 @@ https://mjones44.medium.com/storing-dotfiles-in-a-git-repository-53f765c0005d
 2. Install [oh-my-zsh](https://ohmyz.sh/#install)
 3. Install Homebrew packages:
 ```sh
-brew install git neovim fzf fnm lazygit ripgrep
+brew update
+brew install git neovim fzf fnm lazygit ripgrep luarocks lua-language-server
 brew install --cask rectangle
 fnm install --lts
 ```

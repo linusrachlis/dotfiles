@@ -2,16 +2,16 @@ return {
   "neovim/nvim-lspconfig",
   dependencies = { 'saghen/blink.cmp' },
   config = function()
-    local capabilities = require('blink.cmp').get_lsp_capabilities()
-
-    vim.lsp.config('pyright', { capabilities = capabilities })
     vim.lsp.enable('pyright')
-    vim.lsp.config('ts_ls', { capabilities = capabilities })
-    vim.lsp.enable('ts_ls')
-    vim.lsp.config('terraformls', { capabilities = capabilities })
     vim.lsp.enable('terraformls')
-    vim.lsp.config('phpactor', { capabilities = capabilities })
     vim.lsp.enable('phpactor')
+
+    vim.lsp.config('ts_ls', { cmd = { "fnm", "exec", "--using", "default", "typescript-language-server", "--stdio" } })
+    vim.lsp.enable('ts_ls')
+
+    vim.lsp.config('html', { cmd = { "fnm", "exec", "--using", "default", "vscode-html-language-server", "--stdio" } })
+    vim.lsp.enable('html')
+
     vim.lsp.config('lua_ls', {
       on_init = function(client)
         if client.workspace_folders then
