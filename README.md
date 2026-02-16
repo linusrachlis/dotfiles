@@ -30,6 +30,13 @@ git clone --bare git@github.com:linusrachlis/dotfiles.git $HOME/.dotfiles
 git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME config --local status.showUntrackedFiles no
 git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout
 
+# For some reason remote tracking branches are not set up automatically with this setup
+git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME fetch origin
+
+# Check if the remote tracking branch is set up correctly
+git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME branch -r
+# If not, remove and re-add the remote, then fetch again
+
 # Run this whenever needed after pulling updates
 source dotfiles_bootstrap.sh
 ```
