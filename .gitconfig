@@ -31,8 +31,9 @@
     no-skip = update-index --no-skip-worktree
     show-dead-branches = !git branch -vv | grep 'origin/.*: gone]' | awk '{print $1}'
     remove-dead-branches = !git show-dead-branches | xargs git branch -D
-    fpr = !git fetch --prune && git remove-dead-branches
-    finished-feature = !git checkout main && git fpr && git merge
+    fpr = !git fetch --prune && git remove-dead-branches  # remove branches deleted upstream
+    ppr = !git fpr && git merge  # remove stale branches and move to latest version of current branch
+    finished-feature = !git checkout main && git fpr && git merge  # go back to main branch, remove deleted branches, pull latest
 [grep]
     lineNumber = true
 [push]
