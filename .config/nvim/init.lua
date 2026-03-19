@@ -126,7 +126,7 @@ vim.keymap.set('n', '<leader><leader>bl', '<CMD>set bg=light<CR>', { desc = 'Set
 vim.keymap.set('n', '<leader><leader>bd', '<CMD>set bg=dark<CR>', { desc = 'Set dark background' })
 
 -- LSP shortcuts
-vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = 'LSP format' })
+vim.keymap.set({ "n", "v" }, "<leader>lf", vim.lsp.buf.format, { desc = 'LSP format' })
 
 local function get_relative_file_path()
   local full_path = vim.api.nvim_buf_get_name(0)
