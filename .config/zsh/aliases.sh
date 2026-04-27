@@ -44,8 +44,3 @@ alias showpath='echo $PATH | tr : ''\\n'''
 alias k='kitty @'
 
 # }}}
-
-# Include work-only aliases if exists
-if [ -f ~/.config/zsh/work_aliases.sh ]; then
-    source ~/.config/zsh/work_aliases.sh
-fi
