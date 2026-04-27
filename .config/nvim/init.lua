@@ -149,7 +149,7 @@ vim.api.nvim_create_user_command('CopyRelPath', function()
 end, {})
 vim.keymap.set('n', "<leader>yp", '<cmd>CopyRelPath<CR>', { desc = 'Copy file path relative to CWD' })
 
--- Copy file path relative to CWD with line number in a qflist-compatible format
+-- Copy file path relative to CWD with line number
 vim.api.nvim_create_user_command('CopyRelPathWithLineNumber', function()
   local relative_path = get_relative_file_path()
   local line_number = vim.api.nvim_win_get_cursor(0)[1]
@@ -159,6 +159,22 @@ vim.api.nvim_create_user_command('CopyRelPathWithLineNumber', function()
 end, {})
 vim.keymap.set('n', "<leader>yP", '<cmd>CopyRelPathWithLineNumber<CR>',
   { desc = 'Copy file path with line number relative to CWD' })
+
+-- Add current position to qflist
+vim.api.nvim_create_user_command('AddToQuickfixList', function()
+  local current_line_text = vim.api.nvim_get_current_line()
+  local relative_path = get_relative_file_path()
+  local line_number, col_number = unpack(vim.api.nvim_win_get_cursor(0))
+  vim.fn.setqflist({ { filename = relative_path, lnum = line_number, col = col_number, text = current_line_text } }, 'a')
+  local full_result = relative_path .. "|" .. line_number .. " col " .. col_number .. "|" .. current_line_text
+  print(full_result)
+end, {})
+vim.keymap.set('n', "<leader>yq", '<cmd>AddToQuickfixList<CR>',
+  { desc = 'Add current position to quickfix list' })
+
+vim.api.nvim_create_user_command('NewQuickfixList', function()
+  vim.cmd('call setqflist([])')
+end, { desc = 'Create a new empty quickfix list' })
 
 -- Helpers related to current directory
 vim.api.nvim_create_user_command("CdCurrentFile", "cd %:p:h", {})
