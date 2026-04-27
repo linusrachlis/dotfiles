@@ -30,6 +30,9 @@ watch-slow() {
     while true; do; clear; eval $@; sleep 5; done
 }
 
+alias lowercase='tr "[:upper:]" "[:lower:]"'
+alias uppercase='tr "[:lower:]" "[:upper:]"'
+
 alias reload_aliases='. ~/.config/zsh/aliases.sh'
 alias edit_aliases='nvim ~/.config/zsh/aliases.sh'
 
