@@ -198,7 +198,7 @@ end, {})
 vim.keymap.set({ 'n', 'v' }, '<leader>gy', '<cmd>CopyGithubPermalink<CR>', { desc = 'Git Yank Permalink' })
 
 -- Save default session file, save buffers, and quit all windows
-vim.api.nvim_create_user_command('WQ', 'mks! | wqa', {})
+vim.api.nvim_create_user_command('WQ', 'mks! | wa | qa!', {})
 
 -- Easier window navigation
 vim.keymap.set('n', '<C-h>', '<C-w>h')
