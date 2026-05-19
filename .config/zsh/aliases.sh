@@ -23,6 +23,9 @@ gitnodotfiles() {
 
 # General shortcuts and helpers {{{
 
+watch-fast() {
+    while true; do; clear; eval $@; sleep 0.2; done
+}
 watch() {
     while true; do; clear; eval $@; sleep 1; done
 }
