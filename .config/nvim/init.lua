@@ -198,6 +198,9 @@ vim.keymap.set({ 'n', 'v' }, '<leader>gy', '<cmd>CopyGithubPermalink<CR>', { des
 -- Save default session file, save buffers, and quit all windows
 vim.api.nvim_create_user_command('WQ', 'mks! | wa | qa!', {})
 
+-- Easier tab rename (depends on Tabby)
+vim.api.nvim_create_user_command("TR", "TabRename <args>", { desc = "TabRename shortcut", nargs = "*" })
+
 -- Easier window navigation
 vim.keymap.set('n', '<C-h>', '<C-w>h')
 vim.keymap.set('n', '<C-l>', '<C-w>l')
