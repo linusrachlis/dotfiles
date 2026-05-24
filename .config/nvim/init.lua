@@ -201,6 +201,10 @@ vim.api.nvim_create_user_command('WQ', 'mks! | wa | qa!', {})
 -- Easier tab rename (depends on Tabby)
 vim.api.nvim_create_user_command("TR", "TabRename <args>", { desc = "TabRename shortcut", nargs = "*" })
 
+-- Easier diff mode control
+vim.api.nvim_create_user_command("Diff", "windo diffthis", { desc = "Diff on for all windows" })
+vim.api.nvim_create_user_command("Nodiff", "windo diffoff", { desc = "Diff off for all windows" })
+
 -- Easier window navigation
 vim.keymap.set('n', '<C-h>', '<C-w>h')
 vim.keymap.set('n', '<C-l>', '<C-w>l')
