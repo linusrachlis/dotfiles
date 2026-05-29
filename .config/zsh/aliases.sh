@@ -1,5 +1,4 @@
 # vim:fileencoding=utf-8:foldmethod=marker
-
 # Git and dotfiles helpers {{{
 
 rename_master_to_main() {
@@ -36,8 +35,10 @@ watch-slow() {
 alias lowercase='tr "[:upper:]" "[:lower:]"'
 alias uppercase='tr "[:lower:]" "[:upper:]"'
 
-alias reload_aliases='. ~/.config/zsh/aliases.sh'
-alias edit_aliases='nvim ~/.config/zsh/aliases.sh'
+reload-aliases() {
+    source ~/.config/zsh/aliases.sh
+}
+alias edit-aliases='nvim ~/.config/zsh/aliases.sh'
 
 alias lg=lazygit
 # Always use Nvim rather than vi or vim
@@ -50,3 +51,7 @@ alias showpath='echo $PATH | tr : ''\\n'''
 alias k='kitty @'
 
 # }}}
+
+if [ -f ~/.config/zsh/work_aliases.sh ]; then
+    source ~/.config/zsh/work_aliases.sh
+fi
