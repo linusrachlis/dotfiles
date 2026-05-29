@@ -206,16 +206,24 @@ vim.api.nvim_create_user_command("Diff", "windo diffthis", { desc = "Diff on for
 vim.api.nvim_create_user_command("Nodiff", "windo diffoff", { desc = "Diff off for all windows" })
 
 -- Easier window navigation
-vim.keymap.set('n', '<C-h>', '<C-w>h')
-vim.keymap.set('n', '<C-l>', '<C-w>l')
-vim.keymap.set('n', '<C-k>', '<C-w>k')
-vim.keymap.set('n', '<C-j>', '<C-w>j')
+vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
+vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Move to upper window' })
+vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Move to lower window' })
 
 -- Easier window resizing
-vim.keymap.set('n', '<C-=>', '<cmd>resize +5<CR>')
-vim.keymap.set('n', '<C-->', '<cmd>resize -5<CR>')
-vim.keymap.set('n', '<C-.>', '<cmd>vertical resize +5<CR>')
-vim.keymap.set('n', '<C-,>', '<cmd>vertical resize -5<CR>')
+vim.keymap.set('n', '<C-=>', '<cmd>resize +5<CR>', { desc = 'Increase window height' })
+vim.keymap.set('n', '<C-->', '<cmd>resize -5<CR>', { desc = 'Decrease window height' })
+vim.keymap.set('n', '<C-.>', '<cmd>vertical resize +5<CR>', { desc = 'Increase window width' })
+vim.keymap.set('n', '<C-,>', '<cmd>vertical resize -5<CR>', { desc = 'Decrease window width' })
+
+-- Use vertical splits for "go to" window commands
+vim.keymap.set('n', '<C-w>]', '<cmd>vertical wincmd ]<CR>', { desc = 'Go to definition in split' })
+vim.keymap.set('n', '<C-w><C-]>', '<cmd>vertical wincmd ]<CR>', { desc = 'Go to definition in split' })
+vim.keymap.set('n', '<C-w>f', '<cmd>vertical wincmd f<CR>', { desc = 'Go to file in split' })
+vim.keymap.set('n', '<C-w><C-f>', '<cmd>vertical wincmd f<CR>', { desc = 'Go to file in split' })
+vim.keymap.set('n', '<C-w>F', '<cmd>vertical wincmd F<CR>', { desc = 'Go to file/line in split' })
+vim.keymap.set('n', '<C-w><C-F>', '<cmd>vertical wincmd F<CR>', { desc = 'Go to file/line in split' })
 
 -- Treesitter init per filetype
 vim.api.nvim_create_autocmd('FileType', {
