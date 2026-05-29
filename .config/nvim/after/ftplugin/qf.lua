@@ -8,15 +8,6 @@ vim.opt_local.errorformat = {
 vim.api.nvim_create_autocmd("BufEnter", {
   buffer = 0,
   callback = function()
-    print("buf enter")
     vim.opt_local.modifiable = true
-  end,
-})
-
-vim.api.nvim_create_autocmd("BufWriteCmd", {
-  buffer = 0,
-  callback = function()
-    print("buf write")
-    vim.cmd("cgetbuf")
   end,
 })
