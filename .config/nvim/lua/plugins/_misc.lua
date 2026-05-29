@@ -3,6 +3,7 @@ return {
   "numToStr/Comment.nvim",
   "folke/which-key.nvim",
   "tpope/vim-surround",
+  { "folke/lazydev.nvim", ft = "lua", opts = {} },
   {
     'echasnovski/mini.trailspace',
     version = '*',
