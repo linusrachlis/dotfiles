@@ -38,7 +38,8 @@
     remove-dead-branches = !git show-dead-branches | xargs git branch -D
     fpr = !git fetch --prune && git remove-dead-branches  # remove branches deleted upstream
     fprm = !git fpr && git merge  # remove stale branches and move to latest version of current branch
-    finished-feature = !git checkout main && git fpr && git merge  # go back to main branch, remove deleted branches, pull latest
+    finished-branch = !git checkout main && git fprm  # go back to main branch, remove deleted branches, pull latest
+    fomm = fetch origin main:main
 [grep]
     lineNumber = true
 [push]
