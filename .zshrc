@@ -5,6 +5,9 @@ export PATH=$HOME/.local/bin:$PATH
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="refined"
 
+# Oh-my-zsh settings
+zstyle ':omz:update' mode disabled
+
 # Use work config if present (not tracked), otherwise personal
 if [ -f ~/.config/zsh/work.sh ]; then
     source ~/.config/zsh/work.sh
